@@ -1,13 +1,15 @@
-
+import css from './ContactList.module.css'
 import Contact from '../Contact/Contact';
 
 const ContactList = ({ contacts, deleteContact }) => {
   return (
-    <div>
+    <ul  className={css.listStyle}>
       {contacts.map((contact) => (
-        <Contact key={contact.id} contact={contact} deleteContact={deleteContact} />
+        <li className={css.itemStyle} key={contact.id}>
+        <Contact  contact={contact} deleteContact={deleteContact} />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
 

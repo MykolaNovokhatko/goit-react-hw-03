@@ -1,6 +1,6 @@
-
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import css from './ContactForm.module.css';
 
 const ContactForm = ({ addContact }) => {
   const initialValues = {
@@ -12,13 +12,13 @@ const ContactForm = ({ addContact }) => {
     name: Yup.string()
       .min(3, 'Must be at least 3 characters')
       .max(50, 'Must be 50 characters or less')
-      .required('This field is required'),
-      number: Yup.number()
+      .required('Required'),
+    number: Yup.number()
       .typeError("That doesn't look like a phone number")
       .positive("A phone number can't start with a minus")
       .integer("A phone number can't include a decimal point")
       .min(8)
-      .required('A phone number is required'),
+      .required('Required'),
   });
 
   const onSubmit = (values, { resetForm }) => {
@@ -27,19 +27,23 @@ const ContactForm = ({ addContact }) => {
   };
 
   return (
-    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
-      <Form>
-        <div>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={onSubmit}
+    >
+      <Form className={css.formStyle}>
+        <div className={css.itemStyle}>
           <label htmlFor="name">Name</label>
           <Field type="text" id="name" name="name" />
-          <ErrorMessage name="name" component="div" />
+          <ErrorMessage className={css.errorStyle} name="name" component="div" />
         </div>
-        <div>
+        <div className={css.itemStyle}>
           <label htmlFor="number">Number</label>
           <Field type="text" id="number" name="number" />
-          <ErrorMessage name="number" component="div" />
+          <ErrorMessage className={css.errorStyle} name="number" component="div" />
         </div>
-        <button type="submit">Add contact</button>
+        <button type="submit" className={css.btnStyle}>Add contact</button>
       </Form>
     </Formik>
   );

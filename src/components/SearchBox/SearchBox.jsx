@@ -1,13 +1,13 @@
-
+import css from './SearchBox.module.css';
 
 const SearchBox = ({ setSearchTerm }) => {
-  const handleSearch = (event) => {
+  const handleSearch = event => {
     setSearchTerm(event.target.value);
   };
 
   return (
-    <div>
-      <label htmlFor="search">Find contacts by name</label>
+    <div className={css.shearchStyle}>
+      <label htmlFor="search">Find contacts by name:</label>
       <input
         type="text"
         id="search"

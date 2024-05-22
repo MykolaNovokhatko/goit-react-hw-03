@@ -8,7 +8,6 @@ import { nanoid } from 'nanoid';
 
 export default function App() {
   const [contacts, setContacts] = useState(() => {
-    
     const savedContacts = JSON.parse(localStorage.getItem('contacts'));
     return savedContacts ? savedContacts : initialContacts;
   });
@@ -27,16 +26,22 @@ export default function App() {
     setContacts(prevContacts => prevContacts.filter(contact => contact.id !== contactId));
   };
 
+  const resetContacts = () => {
+    setContacts(initialContacts);
+    localStorage.setItem('contacts', JSON.stringify(initialContacts));
+  };
+
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div>
-      <h1 className={css.appStyle}>Phonebook</h1>
+    <div className={css.appStyle}>
+      <h1 className={css.titleStyle}>Phonebook</h1>
       <ContactForm addContact={addContact} />
       <SearchBox setSearchTerm={setSearchTerm} />
       <ContactList contacts={filteredContacts} deleteContact={deleteContact} />
+      <button onClick={resetContacts}>Reset Contacts</button>
     </div>
   );
 }
